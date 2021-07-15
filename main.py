@@ -45,6 +45,7 @@ class Gmail(object):
 
 
 def save_to_file(data: str, filename: str = MY_TIME):
+    # W przypadku błędu uzupełnić o pełną ściezke do pliku
     f = open(f'data/{filename}', 'a')
     f.write(f'{data} \n ')
 
@@ -81,7 +82,7 @@ if __name__ == "__main__":
                 output +=  '<li>'+ element + '</li>'
             html = f"<html><head></head><body><p>Audycja z dzisiaj<br> <ol> {output.encode('ascii', 'ignore')} </ol></body></html>"
             gm = Gmail(SENDER_MAIL, PASSWORD)
-            gm.send_message(f'Funkowa środa Suwaka {MY_TIME}' , RECIVER_MAIL, html)
+            gm.send_message(f'Funkowa sroda Suwaka {MY_TIME}' , RECIVER_MAIL, html)
             break
 
         # Spi 15 piosenek średnio po 3 min czyli 15*180 = 2700 sec
