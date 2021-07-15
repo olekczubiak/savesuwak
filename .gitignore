@@ -2,3 +2,4 @@ suwak
 data
 __pycache__
 test.html
+env.py

@@ -12,12 +12,17 @@ W pliku env.py trzmane są dane do logowania do poczty:
 ```
 SENDER_MAIL = 'example@gmail.com' # adres email z ktorego wysyłamy
 PASSWORD = 'password' # Hasło do skrzynki pocztowej z której otrzymujemy dane
-PORT = 587 - # port dla dla gmaila
+PORT = 587 # port dla dla gmaila
 SMTP_SERVER = 'smtp.gmail.com' # dla gmaila
 RECIVER_MAIL = 'example@gmail.com' #adres na ktory wysyłamy składankę z dzisiaj
 ```
 Jeżeli chcemy wysyłać na ten sam adres emailowy z którego wysyłamy, wystarczy dać ten sam adress co w **SENDER_MAIL**.
 
 ### Instalacja
-Instalacje należy zacząć od zainstalowania biblioteki request. Następnie na serwerze za pomocą aplikacji **xxx** włączać skrypt main.py co środę w godzinach trwania audycji. 
+Instalacje należy zacząć od zainstalowania biblioteki request. Następnie na serwerze trzeba ustawić crontaba
+```
+crontab -e
+```
+Dodajemy 
+> *15 14 * * 3 scieżka/do/skryptu*
 

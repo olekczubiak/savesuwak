@@ -22,7 +22,7 @@ class Gmail(object):
         self.password = password
         self.server = SMTP_SERVER
         self.port = PORT
-        session = smtplib.SMTP(self.server, self.port)        
+        session = smtplib.SMTP(self.server, self.port)
         session.ehlo()
         session.starttls()
         session.ehlo
@@ -45,8 +45,7 @@ class Gmail(object):
 
 
 def save_to_file(data: str, filename: str = MY_TIME):
-    # W przypadku błędu uzupełnić o pełną ściezke do pliku
-    f = open(f'data/{filename}', 'a')
+    f = open(f'data/{filename}', 'w+')
     f.write(f'{data} \n ')
 
 def number_of_elements(json_data):
@@ -56,27 +55,33 @@ def parse_data(json_data: str,number_of_song: int ,key_word: str):
     return json.dumps(json_data[number_of_song][key_word], ensure_ascii=False).encode('utf8')
 
 def return_all_data(json_data):
-    for n in range(number_of_elements(json_data)):
-        title = '<b>' + str(parse_data(json_data, n, 'title').decode()).replace('"', '') + '</b>'
-        title_to_save =  str(parse_data(json_data, n, 'title').decode()).replace('"', '')
-        artist = str(parse_data(json_data, n, 'artist').decode()).replace('"', '')
-        element = f'{artist} – {title}'
-        element_to_save = f'{artist} – {title_to_save}'
-        if element in fake_db:
-            pass
-        else:
-            fake_db.append(element)
-            save_to_file(element_to_save)
+    if type(json_data) == str:
+        fake_db.append(json_data)
+        save_to_file(json_data)
+    else:
+        for n in range(number_of_elements(json_data)):
+            title = '<b>' + str(parse_data(json_data, n, 'title').decode()).replace('"', '') + '</b>'
+            title_to_save =  str(parse_data(json_data, n, 'title').decode()).replace('"', '')
+            artist = str(parse_data(json_data, n, 'artist').decode()).replace('"', '')
+            element = f'{artist} – {title}'
+            element_to_save = f'{artist} – {title_to_save}'
+            if element in fake_db:
+                pass
+            else:
+                fake_db.append(element)
+                save_to_file(element_to_save)
 
 
 
 if __name__ == "__main__":
-    n: int = 0 
+    n: int = 0
     while True:
         n += 1
+        # print(download_data('https://newonce.net/api/radio_history'))
         return_all_data(download_data('https://newonce.net/api/radio_history'))
-
-        if n == 3:
+        # print(fake_db)
+# 
+        if n == 2:
             output: str = ''
             for element in fake_db:
                 output +=  '<li>'+ element + '</li>'
@@ -89,4 +94,4 @@ if __name__ == "__main__":
         time.sleep(2700)
 
         # Testowo na 2 piosenki czyli 2 * 180 = 360 sec
-        # time.sleep(360)
+        # time.sleep(33)
