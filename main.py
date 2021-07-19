@@ -45,7 +45,7 @@ class Gmail(object):
 
 
 def save_to_file(data: str, filename: str = MY_TIME):
-    f = open(f'data/{filename}', 'w+')
+    f = open(f'data/{filename}', 'a')
     f.write(f'{data} \n ')
 
 def number_of_elements(json_data):
